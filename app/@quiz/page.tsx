@@ -1,6 +1,52 @@
-import React from "react";
+"use client";
+
+import useQuiz from "@/store";
+import React, { useState, useEffect } from "react";
+
+type questionT = {
+  answers: string[];
+  category: string;
+  correct_answer: string;
+  incorrect_answers: string[];
+  difficulty: string;
+  type: string;
+};
 
 function Quiz() {
+  const [questions, setQuestions] = useState<any>(null);
+  const [answer, setAnswer] = useState("");
+  const [loading, setLoading] = useState(false);
+  const changeStatus = useQuiz((state: any) => state.changeStatus);
+  const config = useQuiz((state: any) => state.config);
+  const addLevel = useQuiz((state: any) => state.addLevel);
+  const addCategory = useQuiz((state: any) => state.addCategory);
+  const addType = useQuiz((state: any) => state.addType);
+  const addNumberOfQuestion = useQuiz((state: any) => state.addNumberOfQuestion);
+  const setScore = useQuiz((state: any) => state.setScore);
+
+  useEffect(() => {
+    async function getQuestions() {
+      setLoading(true);
+      const { results } = await (
+        await fetch(
+          `https://opentdb.com/api.php?amount=${config.numberOfQuestion}&category=${config.category.id}&difficulty=${config.level}&type=${config.type}`
+        )
+      ).json();
+      console.log(results);
+      //  let shuffledResults = results.map((e: questionT) => {
+      //    let value = [...e.incorrect_answers, e.correct_answer]
+      //      .map((value) => ({ value, sort: Math.random() }))
+      //      .sort((a, b) => a.sort - b.sort)
+      //      .map(({ value }) => value);
+      //    e.answers = [...value];
+      //    return e;
+      //  });
+      //  console.log(shuffledResults, "shuffeled");
+      //  setQuestions([...shuffledResults]);
+      //  setLoading(false);
+    }
+    getQuestions();
+  });
   return (
     <section className="flex flex-col justify-center items-center mt-10">
       <h1 className="mb-4 text-4xl font-extrabold leading-none tracking-tight text-gray-900 md:text-5xl lg:text-6xl dark:text-white">
