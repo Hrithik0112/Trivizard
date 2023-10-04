@@ -10,7 +10,7 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
-import useQuiz from "@/app/store";
+import useQuiz from "@/store";
 
 type CategoryType = {
   id: number;
