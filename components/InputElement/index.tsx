@@ -4,7 +4,7 @@ import useQuiz from "@/store";
 import React from "react";
 
 export default function InputElement() {
-  const addQuestionNumber = useQuiz((state: any) => state.addQuestionNumber);
+  const addNumberOfQuestion = useQuiz((state: any) => state.addNumberOfQuestion);
 
   return (
     <>
@@ -15,7 +15,7 @@ export default function InputElement() {
           max={50}
           min={10}
           onChange={(e: React.FormEvent<HTMLInputElement>) =>
-            addQuestionNumber(e.currentTarget.value ?? "")
+            addNumberOfQuestion(e.currentTarget.value ?? "")
           }
           id="floating_outlined"
           className="block px-2.5 pb-2.5 pt-4 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border-1 border-gray-300 appearance-none dark:text-gray-50 dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"

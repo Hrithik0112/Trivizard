@@ -3,6 +3,8 @@
 import { cn } from "@/lib/utils";
 import useQuiz from "@/store";
 import React, { useState, useEffect } from "react";
+import { Skeleton } from "@/components/ui/skeleton";
+import { Player } from "@lottiefiles/react-lottie-player";
 
 type questionT = {
   answers: string[];
@@ -64,21 +66,55 @@ function Quiz() {
   };
   return (
     <section className="flex flex-col justify-center items-center mt-10">
-      <h1 className="mb-4 text-4xl  font-extrabold leading-none tracking-tight text-gray-900 md:text-5xl lg:text-6xl dark:text-white">
-        Question No{" "}
-        {questions?.length ? (
+      {questions?.length ? (
+        <h1 className="mb-4 text-4xl font-extrabold leading-none tracking-tight text-gray-900 md:text-5xl lg:text-6xl dark:text-white">
+          Question No{" "}
           <span className="text-blue-600 dark:text-blue-500">
-            #{config.numberOfQuestion - questions?.length + 1}
+            #{config.numberOfQuestion - questions.length + 1}
           </span>
-        ) : null}
-        .
-      </h1>
-
-      <p className="text-2xl">Score :{config.score}</p>
-      <section className="flex flex-col justify-center items-center shadow-2xl my-10 p-10 rounded-lg shadow-blue-200">
-        <h1 className="mb-4 text-2xl text-center font-extrabold leading-none tracking-tight text-gray-900 md:text-5xl lg:text-6xl dark:text-white">
-          {questions?.length ? questions[0].question : null}
+          .
         </h1>
+      ) : null}
+
+      {!loading && !!questions?.length && <p className="text-2xl">Score :{config.score}</p>}
+
+      <section className="flex flex-col justify-center items-center shadow-2xl my-10 p-10 rounded-lg shadow-blue-200">
+        <h4 className="mb-4 text-2xl text-center font-extrabold leading-none tracking-tight text-gray-900 md:text-5xl lg:text-6xl dark:text-white">
+          {questions?.length ? questions[0].question : null}
+        </h4>
+        {loading && (
+          <div className="flex flex-col">
+            <Skeleton className="w-[600px] h-[60px] my-10 rounded-sm" />
+
+            <Skeleton className="w-[600px] h-[500px] rounded-sm" />
+          </div>
+        )}
+
+        {!questions?.length && !loading && (
+          <div className="flex flex-col justify-center items-center">
+            <Player
+              src="https://assets6.lottiefiles.com/packages/lf20_touohxv0.json"
+              className="player"
+              loop
+              autoplay
+              style={{ height: "400px", width: "400px" }}
+            />
+            <h1 className="mt-10 text-center font-extrabold text-transparent text-8xl bg-clip-text bg-gradient-to-r from-purple-400 to-pink-600">
+              YOUR SCORE :{" "}
+              <span className="font-extrabold text-transparent text-10xl bg-clip-text bg-gradient-to-r from-blue-400 to-purple-600">
+                {config.score}
+              </span>
+            </h1>
+            <button
+              onClick={() => {
+                window.location.reload();
+              }}
+              className="bg-white hover:bg-gray-100 my-10 text-gray-800 font-semibold py-2 px-10 border border-gray-400 rounded shadow"
+            >
+              Start Over
+            </button>
+          </div>
+        )}
         <div className="flex flex-wrap justify-evenly items-center my-10 w-[90%]">
           {questions?.length
             ? questions[0]?.answers.map((ans: any) => (
