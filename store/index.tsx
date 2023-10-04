@@ -35,6 +35,8 @@ const useQuiz = create((set) => ({
     set((state: configType) => ({ config: { ...state.config, status: status } })),
   setScore: () =>
     set((state: configType) => ({ config: { ...state.config, score: state.config.score + 1 } })),
+
+  removeConfig: () => set({ config: defaultConfig }),
 }));
 
 export default useQuiz;
