@@ -64,7 +64,7 @@ function Quiz() {
   };
   return (
     <section className="flex flex-col justify-center items-center mt-10">
-      <h1 className="mb-4 text-4xl font-extrabold leading-none tracking-tight text-gray-900 md:text-5xl lg:text-6xl dark:text-white">
+      <h1 className="mb-4 text-4xl  font-extrabold leading-none tracking-tight text-gray-900 md:text-5xl lg:text-6xl dark:text-white">
         Question No{" "}
         {questions?.length ? (
           <span className="text-blue-600 dark:text-blue-500">
@@ -76,7 +76,7 @@ function Quiz() {
 
       <p className="text-2xl">Score :{config.score}</p>
       <section className="flex flex-col justify-center items-center shadow-2xl my-10 p-10 rounded-lg shadow-blue-200">
-        <h1 className="mb-4 text-2xl font-extrabold leading-none tracking-tight text-gray-900 md:text-5xl lg:text-6xl dark:text-white">
+        <h1 className="mb-4 text-2xl text-center font-extrabold leading-none tracking-tight text-gray-900 md:text-5xl lg:text-6xl dark:text-white">
           {questions?.length ? questions[0].question : null}
         </h1>
         <div className="flex flex-wrap justify-evenly items-center my-10 w-[90%]">
